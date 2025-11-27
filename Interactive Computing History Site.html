@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Historical Perspective in Computing & Assembly</title>
+  <style>
+    /* DARK TECH THEME */
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #0a0f1a;
+      margin: 0;
+      padding: 0;
+      color: #d0d5e1;
+    }
+    header {
+      background: linear-gradient(135deg, #0d1b2a, #1b263b);
+      color: #9bc4ff;
+      padding: 30px;
+      text-align: center;
+      text-shadow: 0 0 10px #3a7bd5;
+      animation: glow 6s infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #3a7bd5; }
+      100% { text-shadow: 0 0 20px #4cc9f0; }
+    }
+
+    nav {
+      background: #0d1b2a;
+      padding: 15px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      border-bottom: 2px solid #1b263b;
+    }
+    nav a {
+      color: #9bc4ff;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    nav a:hover {
+      color: #4cc9f0;
+      text-shadow: 0 0 10px #4cc9f0;
+    }
+
+    section {
+      padding: 25px;
+      display: none;
+      animation: fadeIn 0.6s ease;
+    }
+    section.active {
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* TIMELINE */
+    .timeline-item {
+      background: #16213e;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      border-left: 4px solid #4cc9f0;
+      transition: 0.3s;
+    }
+    .timeline-item:hover {
+      background: #1a1f3a;
+      transform: translateX(5px);
+    }
+
+    /* CODE BOX */
+    .assembly-demo {
+      background: #0d0d0d;
+      color: #00ff90;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: monospace;
+      box-shadow: 0 0 15px #00ff9044;
+    }
+
+    /* BUTTONS */
+    button {
+      padding: 12px 20px;
+      background: #1b263b;
+      color: #9bc4ff;
+      border: 1px solid #4cc9f0;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background: #16213e;
+      color: #4cc9f0;
+      box-shadow: 0 0 10px #4cc9f0;
+    }
+
+    /* QUIZ */
+    .quiz-box {
+      background: #16213e;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Historical Perspective</h1>
+    <p>Focus on Assembly Language</p>
+  </header>
+
+  <nav>
+    <a onclick="showSection('history')">History Timeline</a>
+    <a onclick="showSection('assembly')">Assembly Overview</a>
+    <a onclick="showSection('demo')">Interactive Demo</a>
+    <a onclick="showSection('quiz')">Quick Quiz</a>
+  </nav>
+
+  <!-- HISTORY SECTION -->
+  <section id="history" class="active">
+    <h2>Timeline of Computing</h2>
+
+    <div class="timeline-item" onclick="toggleInfo('t1')">1940s – Early Machines</div>
+    <p id="t1" style="display:none;">Early machines like ENIAC used pure machine code (1s and 0s). No compilers, no high-level languages.</p>
+
+    <div class="timeline-item" onclick="toggleInfo('t2')">1950s – Assembly Language Emerges</div>
+    <p id="t2" style="display:none;">Assembly allowed symbolic names instead of binary. A massive breakthrough in usability.</p>
+
+    <div class="timeline-item" onclick="toggleInfo('t3')">1970s – Microprocessors</div>
+    <p id="t3" style="display:none;">Assembly became essential for early consumer computers and embedded systems.</p>
+
+    <div class="timeline-item" onclick="toggleInfo('t4')">Today – Still Relevant</div>
+    <p id="t4" style="display:none;">Used in cybersecurity, reverse engineering, embedded devices, and performance-critical software.</p>
+  </section>
+
+  <!-- ASSEMBLY SECTION -->
+  <section id="assembly">
+    <h2>What Is Assembly?</h2>
+    <p>Assembly is a low-level language that interacts directly with CPU registers, memory, and hardware operations.</p>
+
+    <h3>Example (x86 Assembly):</h3>
+    <div class="assembly-demo">
+      MOV AX, 5<br>
+      MOV BX, 3<br>
+      ADD AX, BX<br>
+      ; AX now contains 8
+    </div>
+    <p>This gives direct control over hardware — something high-level languages hide.</p>
+  </section>
+
+  <!-- INTERACTIVE DEMO SECTION -->
+  <section id="demo">
+    <h2>Interactive Assembly Simulator</h2>
+    <p>Enter two numbers to simulate how assembly would add them:</p>
+
+    <label>First Number:</label>
+    <input type="number" id="num1"><br><br>
+
+    <label>Second Number:</label>
+    <input type="number" id="num2"><br><br>
+
+    <button onclick="runAssemblyDemo()">Simulate</button>
+
+    <h3>Output:</h3>
+    <div id="output" class="assembly-demo"></div>
+  </section>
+
+  <!-- QUIZ SECTION -->
+  <section id="quiz">
+    <h2>Quick Knowledge Check</h2>
+    <div class="quiz-box">
+      <p><strong>1. What does assembly language directly interact with?</strong></p>
+      <button onclick="quizResult(1, true)">CPU / Hardware</button>
+      <button onclick="quizResult(1, false)">Web Browsers</button>
+      <p id="quiz1"></p>
+
+      <p><strong>2. Which decade introduced assembly?</strong></p>
+      <button onclick="quizResult(2, true)">1950s</button>
+      <button onclick="quizResult(2, false)">1990s</button>
+      <p id="quiz2"></p>
+    </div>
+  </section>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function toggleInfo(id) {
+      const el = document.getElementById(id);
+      el.style.display = el.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function runAssemblyDemo() {
+      const a = Number(document.getElementById('num1').value);
+      const b = Number(document.getElementById('num2').value);
+      const sum = a + b;
+
+      const assemblyOutput = `MOV AX, ${a}
+MOV BX, ${b}
+ADD AX, BX
+; AX now holds ${sum}`;
+      document.getElementById('output').textContent = assemblyOutput;
+    }
+
+    function quizResult(q, correct) {
+      const msg = correct ? "✔ Correct!" : "✘ Try again.";
+      document.getElementById(`quiz${q}`).textContent = msg;
+    }
+  </script>
+</body>
+</html>
